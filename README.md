@@ -14,3 +14,8 @@ and having good crowdsourced data, it is possible to significantly reduce the sp
 Another component to our project, useful for epidemiologists and others, is the graphical interface.
 This interface consists of a 3D model of a globe, and on this globe we display a simulation of the 
 disease's path predicted by our algorithms.  
+
+
+## Thank You List
+Emilee Chen for the design.
+Eric from MongoDB for extensive help.
