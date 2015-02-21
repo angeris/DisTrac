@@ -10,5 +10,4 @@ insecure
 bootstrap
 jquery
 iron:router
-mrt:three.js
 mrt:twilio-meteor
