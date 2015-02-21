@@ -4,4 +4,7 @@
 
 Meteor.methods({
 
+  initModel: function(params) {
+
+  }
 });
