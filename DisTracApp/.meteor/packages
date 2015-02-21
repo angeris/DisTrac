@@ -10,3 +10,4 @@ insecure
 bootstrap
 jquery
 iron:router
+mrt:three.js
