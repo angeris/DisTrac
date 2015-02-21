@@ -5,11 +5,8 @@
 Meteor.methods({
     reevaluateModel: function() {
         evalModel();
-    }
-});
-
-Meteor.startup({
-    initializeAll: function() {
+    },
+    initializeModel: function() {
         initModel();
     }
 });
