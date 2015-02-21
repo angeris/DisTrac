@@ -11,3 +11,4 @@ bootstrap
 jquery
 iron:router
 mrt:twilio-meteor
+aldeed:geocoder
