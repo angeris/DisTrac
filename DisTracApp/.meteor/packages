@@ -12,3 +12,4 @@ jquery
 iron:router
 mrt:three.js
 mrt:twilio-meteor
+aldeed:geocoder
