@@ -152,9 +152,10 @@ DAT.Globe = function(container, opts) {
     $(".world").mousedown(function(e) {
         onMouseDown(e);
     });
-//    $(".world").mousewheel(function(e) {
-//        onMouseWheel(e);
-//    });
+    //$(".world").scroll(function(e) { console.log("tits");onMouseWheel(e); });
+    $(".world").mousewheel(function(e) {
+        onMouseWheel(e);
+    });
     $(".world").keydown(function(e) {
         onDocumentKeyDown(e);
     });
@@ -165,22 +166,8 @@ DAT.Globe = function(container, opts) {
         overRenderer = false;
     });
     
-    /*container.addEventListener('mousedown', onMouseDown, false);
-
-    container.addEventListener('mousewheel', onMouseWheel, false);
-
-    document.addEventListener('keydown', onDocumentKeyDown, false);
-    */
     window.addEventListener('resize', onWindowResize, false);
 
-    /*container.addEventListener('mouseover', function() {
-      overRenderer = true;
-    }, false);
-
-    container.addEventListener('mouseout', function() {
-      overRenderer = false;
-    }, false);
-    */
   }
 
   function addData(data, opts) {
@@ -291,9 +278,6 @@ DAT.Globe = function(container, opts) {
   function onMouseDown(event) {
     event.preventDefault();
 
-    //container.addEventListener('mousemove', onMouseMove, false);
-    //container.addEventListener('mouseup', onMouseUp, false);
-    //container.addEventListener('mouseout', onMouseOut, false);
     $(".world").mousemove(function(e) {
         onMouseMove(e);
     });
@@ -327,22 +311,14 @@ DAT.Globe = function(container, opts) {
   }
 
   function onMouseUp(event) {
-    //container.removeEventListener('mousemove', onMouseMove, false);
-    //container.removeEventListener('mouseup', onMouseUp, false);
-    //container.removeEventListener('mouseout', onMouseOut, false);
-    
     $(".world").off("mousemove");
     $(".world").off("mouseup");
     $(".world").off("mouseout");
 
     
-//    container.style.cursor = 'auto';
   }
 
   function onMouseOut(event) {
-    //container.removeEventListener('mousemove', onMouseMove, false);
-    //container.removeEventListener('mouseup', onMouseUp, false);
-    //container.removeEventListener('mouseout', onMouseOut, false);
     $(".world").off("mousemove");
     $(".world").off("mouseup");
     $(".world").off("mouseout");
@@ -351,7 +327,7 @@ DAT.Globe = function(container, opts) {
   function onMouseWheel(event) {
     event.preventDefault();
     if (overRenderer) {
-      zoom(event.wheelDeltaY * 0.3);
+      zoom(event.deltaY * 0.3);
     }
     return false;
   }
