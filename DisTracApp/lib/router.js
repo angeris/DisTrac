@@ -8,14 +8,26 @@ Router.route('/', {
   template: 'index'
 });
 
-var requireLogin = function () {
-  if (!Meteor.user()) {
-    if (Meteor.loggingIn()) {
-      this.render(this.loadingTemplate);
-    } else {
-      this.render('accessDenied');
-    }
-  } else {
-    this.next();
+// Router Endpoint for Twilio.
+Router.route('/api/text', {
+  where: 'server',
+  name: 'twilioText',
+  action: function () {
+
+    // Create upper context to form response objects.
+    var upperContext = this;
+
+    // Send the request data to Twilio Handler on backend.
+    Meteor.call('handleTwilio', this.request.query, function (error, data) {
+      // var resp = new Twilio.TwimlResponse();
+      // resp.sms('The text works!');
+
+      // upperContext.response.writeHead(200, {
+      //   'Content-Type': 'text/xml'
+      // });
+
+      // console.log(resp.toString());
+      // upperContext.response.end(resp.toString());
+    });
   }
-};
+});
