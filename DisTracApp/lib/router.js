@@ -19,15 +19,17 @@ Router.route('/api/text', {
 
     // Send the request data to Twilio Handler on backend.
     Meteor.call('handleTwilio', this.request.query, function (error, data) {
-      // var resp = new Twilio.TwimlResponse();
-      // resp.sms('The text works!');
 
-      // upperContext.response.writeHead(200, {
-      //   'Content-Type': 'text/xml'
-      // });
+      // Set head to be xml format, readable by twilio.
+      upperContext.response.writeHead(200, {
+        'Content-Type': 'text/xml'
+      });
 
-      // console.log(resp.toString());
-      // upperContext.response.end(resp.toString());
+      // Create a TwimlResponse to send back to the calling user.
+      var resp = new Twilio.TwimlResponse();
+      resp.sms(data.returnText);
+      console.log(resp.toString());
+      upperContext.response.end(resp.toString());
     });
   }
 });

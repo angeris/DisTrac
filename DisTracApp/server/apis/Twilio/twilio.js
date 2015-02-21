@@ -55,30 +55,77 @@ Meteor.methods({
     var message = query.Body;
     var params = parseMessage(message);
 
-    if (params.func === '')
-    // Create the address from twilio parameters.
-    var address = (query.FromCity + ', ' + query.FromState + ' ' + query.FromZip).replace(/\s/g, '+');
+    // User wants to subscribe.
+    if (params.func === 'subscribe') {
 
-    // Get Geocoder information on the address using google's geocoder api.
-    var geocoder = new GeoCoder();
-    var location = geocoder.geocode(address);
+      // Latitude and longitude for the message.
+      var geocoder = new GeoCoder();
+      var location = geocoder.geocode(params.loc);
+      var lat = location[0].latitude;
+      var lon = location[0].longitude;
+      var phoneNum = query.From;
 
-    // Latitude and longitude for the message.
-    var lat = location[0].latitude;
-    var lon = location[0].longitude;
+      // Check for existing subscription and halt operation if existing.
+      var existingSub = Subscriptions.find({phoneNum: phoneNum});
 
+      if (!existingSub) {
+        // Store the subscription in the mongodb database.
+        Subscriptions.insert({
+          lat: lat,
+          lon: lon,
+          phoneNum: phoneNum
+        });
 
-    // Messages.insert({
+        // Return a success message.
+        return {returnText: 'Subscription Successful'};
+      } else {
 
-    // });
+        // Return that the user has already subscribed.
+        return {returnText: 'Already Subscribed'};
+      }
 
-    // Comments.insert({
-    //   postId: telescopeId,
-    //   userId: tom._id,
-    //   author: tom.profile.name,
-    //   submitted: new Date(now - 5 * 3600 * 1000),
-    //   body: 'Interesting project Sacha, can I get involved?'
-    // });
+    // User wants to report.
+    } else if (params.func === 'report') {
+
+      // Latitude and longitude for the message.
+      var geocoder = new GeoCoder();
+      var location = geocoder.geocode(params.loc);
+      var lat = location[0].latitude;
+      var lon = location[0].longitude;
+      var dis = params.dis;
+      var disCount = params.disCount;
+      var phoneNum = query.From;
+
+      // Store the report in the mongodb database.
+      Reports.insert({
+        lat: lat,
+        lon: lon,
+        dis: dis,
+        disCount: disCount,
+        phoneNum: phoneNum
+      });
+
+      // Return a success message.
+      return {returnText: 'Report Successful'};
+
+    // User rauns into an error.
+    } else if (params.func === 'error') {
+
+      // Return an error message.
+      return {returnText: 'Invalid Input'};
+
+    // Mysterious WTF case.
+    } else {
+      console.log("Control should never reach this point. A bad error occurred.");
+    }
     console.log(query);
+  },
+
+  /* alertSubscribers, send a text alert to all of the subscribers in the database, by
+   * querying for all subscribers and then sending the associated text to each of them
+   * individually. The text should be quite detailed.
+   */
+  alertSubscribers: function (disease) {
+
   }
 });
