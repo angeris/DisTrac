@@ -3,14 +3,11 @@
  */
 
 Meteor.methods({
-
-    initModel: function() {
-
-    }
+    
 });
 
 Meteor.startup({
-    initializeAll: function(params) {
-        initAnn
+    initializeAll: function() {
+        initModel();
     }
 });
