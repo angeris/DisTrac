@@ -33,21 +33,13 @@ function init() {
       var i, tweens = [];
       var data;
       
-       var settime = function(globe, t) {
+      var settime = function(globe, t) {
         return function() {
           new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-          /*var y = document.getElementById('year'+years[t]);
-          if (y.getAttribute('class') === 'year active') {
-            return;
-          }
-          var yy = document.getElementsByClassName('year');
-          for(i=0; i<yy.length; i++) {
-            yy[i].setAttribute('class','year');
-          }
-          y.setAttribute('class', 'year active');
-          */
         };
       };
+
+
       
       // This ain't workin
 /*      var xhr = new XMLHttpRequest(); 
@@ -77,6 +69,7 @@ function init() {
       });
 */
       
+
       // Whatever man screw loading from files
       data = popData;
       window.data = data;
@@ -84,8 +77,8 @@ function init() {
         globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
       }
       globe.createPoints();
-      settime(globe,0)();
-      
+      settime(globe,1)();
+     
       document.body.style.backgroundImage = 'none';
       
       globe.animate();
