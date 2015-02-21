@@ -3,7 +3,9 @@
  */
 
 Meteor.methods({
-    
+    reevaluateModel: function() {
+        evalModel();
+    }
 });
 
 Meteor.startup({

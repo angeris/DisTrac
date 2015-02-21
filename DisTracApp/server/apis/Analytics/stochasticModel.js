@@ -4,6 +4,7 @@ function initModel() {
     
 }
 
-function reevaluateModel() {
+function evalModel() {
     //Reevaluate model from db when new information is given.
 }
+
