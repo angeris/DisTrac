@@ -18,7 +18,9 @@ DAT.Globe = function(container, opts) {
   
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color(0xFF6666);
-    c.setHSL( ( 0.2 - ( x * 0.3 ) ), 1.0, 0.5 );
+    if (x > 20) x = 20;
+    x /= 20;
+    c.setHSL( ( 0.2 - ( x * 0.3 )), 1.0, 0.5 );
     return c;
   };
   var imgDir = opts.imgDir || 'images/';
@@ -193,7 +195,7 @@ DAT.Globe = function(container, opts) {
           lng = data[i + 1];
           size = data[i + 2];
           color = colorFnWrapper(data,i);
-          addPoint(lat, lng, size*100, color, this._baseGeometry);
+          addPoint(lat, lng, size*2, color, this._baseGeometry);
         }
       }
       if(this._morphTargetId === undefined) {
@@ -209,8 +211,7 @@ DAT.Globe = function(container, opts) {
       lng = data[i + 1];
       color = colorFnWrapper(data,i);
       size = data[i + 2];
-      size = size*200;
-      addPoint(lat, lng, size, color, subgeo);
+      addPoint(lat, lng, size*2, color, subgeo);
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});

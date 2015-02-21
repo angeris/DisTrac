@@ -71,7 +71,7 @@ function init() {
       
 
       // Whatever man screw loading from files
-      data = popData;
+      data = sampleData;
       window.data = data;
       for (i=0; i < data.length; i++) {
         globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
