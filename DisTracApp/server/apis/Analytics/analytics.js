@@ -4,7 +4,13 @@
 
 Meteor.methods({
 
-  initModel: function(params) {
+    initModel: function() {
 
-  }
+    }
+});
+
+Meteor.startup({
+    initializeAll: function(params) {
+        initAnn
+    }
 });
