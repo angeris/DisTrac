@@ -10,17 +10,8 @@ var gui;
 Template.index.rendered = function () {
   Meteor.setTimeout(init, 0);
 };
-
-
-var FizzyText = function() {
-  this.message = 'dat.gui';
-  this.speed = 0.8;
-  this.displayOutline = false;
-  // Define render logic ...
-};
   
 function init() {
-  
   
   if(!Detector.webgl){
       Detector.addGetWebGLMessage();
@@ -89,13 +80,30 @@ function init() {
       
       
       
-      
+      var FizzyText = function() {
+        this.message = 'dat.gui';
+        this.Time = 0.8;
+        this.displayOutline = false;
+        this.devLog = 1;
+        // Define render logic ...
+      };
+
       gui = new dat.GUI();
       var text = new FizzyText();
  
       gui.add(text, 'message');
-      gui.add(text, 'speed', -5, 5);
       gui.add(text, 'displayOutline');
+      var time = gui.add(text, 'Time', 0, 100);
+      
+      var devGui = gui.addFolder('Dev');
+      devGui.add(text, 'devLog');
+      
+      // This function gets called when you change the time slider
+      time.onChange(function(value) {
+        
+        // Fires on every change, drag, keypress, etc.
+      });
+      
       
       // Screw around with the DAT gui
       Meteor.setTimeout(style, 1000);
@@ -110,33 +118,4 @@ function init() {
     
     //$(".cr.closed").css("padding-top", "0px").css("padding-bottom", "0px");
   }
-//  scene = new THREE.Scene();
-//  
-//  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-//  camera.position.y = 150;
-//  camera.position.z = 500;
-//    
-//  renderer = new THREE.CanvasRenderer();
-//  console.log(renderer);
-//  renderer.setSize(window.innerWidth, window.innerHeight);
-//  
-//  var light = new THREE.PointLight( 0xffffff);
-//  light.position.set(500,500,500);
-//  scene.add(light);
-//  
-//  var geometry = new THREE.CubeGeometry(100,100,100);
-//  var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-//  var cube = new THREE.Mesh(geometry, material);
-//  scene.add(cube);
-  //console.log(cube);
-//  
-//  console.log(renderer.domElement);
-//  container.append(renderer.domElement);
-//  
-
-  //var globe = new DAT.Globe( container );
-  //console.log(globe);
-  
-  //renderer.render(scene, camera);
-
 }
