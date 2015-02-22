@@ -9,7 +9,7 @@ Meteor.methods({
   getDiseaseInfo: function (disease) {
     var future = new Future();
     var wolframAPI = Meteor.npmRequire('wolfram').createClient(WOLFRAM_API_KEY);
-    var diseaseQuery = disease + ' most common symptoms';
+    var diseaseQuery = disease + ' symptoms';
     var diseaseInfo = null;
 
     // Run http call to wolfram and ask future to wait until result is available.
