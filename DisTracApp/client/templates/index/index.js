@@ -4,11 +4,11 @@ years = [];
 settime = function(globe, t) {
   return function() {
 
-    console.log('running in settime');
+    //console.log('running in settime');
     // MAKE SURE the array is sorted by the years!!!
     // This gives t as the max value in the years array less than t
     for (i = t; i >= 0; i--) {
-      console.log(years);
+      //console.log(years);
       if ((i <= Math.max.apply(null, years)) && ($.inArray(i, years) != -1)) {
         t = i;
         break;
