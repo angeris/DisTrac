@@ -180,7 +180,7 @@ DAT.Globe = function(container, opts) {
     this.is_animated = opts.animated;
     opts.format = opts.format || 'magnitude'; // other option is 'legend'
     if (opts.format === 'magnitude') {
-      step = 3; //increased these both by 1
+      step = 3; 
       colorFnWrapper = function(data, i) { return colorFn(data[i+2]); }
     } else if (opts.format === 'legend') {
       step = 4;
@@ -192,19 +192,24 @@ DAT.Globe = function(container, opts) {
     if (opts.animated) {
       if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
+<<<<<<< HEAD
 
         //console.log("Global time is: " + globeDataObj.time);
         for (i = 0; i < data.length; i += step) {
           //time = data[i + 3];
 
           //if (time <= globeDataObj.time) {
+=======
+        
+        for (i = 0; i < data.length; i += step) {
+          
+>>>>>>> master
             lat = data[i];
             lng = data[i + 1];
             size = data[i + 2];
             color = colorFnWrapper(data,i);
             //console.log("Gonna draw");
             addPoint(lat, lng, size*2, color, this._baseGeometry);
-          //}
         }
       }
       if(this._morphTargetId === undefined) {
@@ -216,15 +221,19 @@ DAT.Globe = function(container, opts) {
     }
     var subgeo = new THREE.Geometry();
     for (i = 0; i < data.length; i += step) {
+<<<<<<< HEAD
 
       //time = data[i + 3];
       //if (time >= globeDataObj.time) {
+=======
+      
+>>>>>>> master
         lat = data[i];
         lng = data[i + 1];
         color = colorFnWrapper(data,i);
         size = data[i + 2];
+
         addPoint(lat, lng, size*2, color, subgeo);
-      //}
     }
     if (opts.animated) {
       this._baseGeometry.morphTargets.push({'name': opts.name, vertices: subgeo.vertices});
