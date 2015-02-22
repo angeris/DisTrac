@@ -1,12 +1,12 @@
-/* API: Model backend for disease analytics. Can be called with specific information which is then
- * parsed using a stochastic model / the SIRE model.
- */
+//  API: Model backend for disease analytics. Can be called with specific information which is then
+//  * parsed using a stochastic model / the SIRE model.
 
-Meteor.methods({
-    reevaluateModel: function() {
-        evalModel();
-    },
-    initializeModel: function() {
-        initModel();
-    }
-});
+
+// Meteor.methods({
+//     reevaluateModel: function() {
+//         evalModel();
+//     },
+//     initializeModel: function() {
+//         initModel();
+//     }
+// });

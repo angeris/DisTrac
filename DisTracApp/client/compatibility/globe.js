@@ -15,7 +15,7 @@ var DAT = DAT || {};
 
 DAT.Globe = function(container, opts) {
   opts = opts || {};
-  
+
   var colorFn = opts.colorFn || function(x) {
     var c = new THREE.Color(0xFF6666);
     if (x > 20) x = 20;
@@ -148,7 +148,7 @@ DAT.Globe = function(container, opts) {
 
     renderer.domElement.style.position = 'absolute';
 
-    
+
     //container.append(renderer.domElement);
 
     $(".world").mousedown(function(e) {
@@ -166,7 +166,7 @@ DAT.Globe = function(container, opts) {
     $(".world").mouseout(function(e) {
         overRenderer = false;
     });
-    
+
     window.addEventListener('resize', onWindowResize, false);
 
   }
@@ -192,11 +192,11 @@ DAT.Globe = function(container, opts) {
     if (opts.animated) {
       if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
-        
+
         //console.log("Global time is: " + globeDataObj.time);
         for (i = 0; i < data.length; i += step) {
           //time = data[i + 3];
-          
+
           //if (time <= globeDataObj.time) {
             lat = data[i];
             lng = data[i + 1];
@@ -216,7 +216,7 @@ DAT.Globe = function(container, opts) {
     }
     var subgeo = new THREE.Geometry();
     for (i = 0; i < data.length; i += step) {
-      
+
       //time = data[i + 3];
       //if (time >= globeDataObj.time) {
         lat = data[i];
@@ -299,7 +299,7 @@ DAT.Globe = function(container, opts) {
     $(".world").mouseout(function(e) {
         onMouseOut(e);
     });
-    
+
     mouseOnDown.x = - event.clientX;
     mouseOnDown.y = event.clientY;
 
@@ -327,7 +327,7 @@ DAT.Globe = function(container, opts) {
     $(".world").off("mouseup");
     $(".world").off("mouseout");
 
-    
+
   }
 
   function onMouseOut(event) {

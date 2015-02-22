@@ -1,0 +1,43 @@
+/* #control */
+#control {
+  background: #3f3f3f;
+  color: #ffffff;
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  left: 0;
+}
+
+#footer {
+  background: #fafafa;
+  border-top: 0;
+  color: #c0c0c0;
+  overflow: hidden;
+  padding: 4em 0 2em 0;
+}
+
+/* Icons */
+ul.icons {
+  display: inline-block;
+}
+
+.icon {
+  text-decoration: none;
+  border-bottom: none;
+  position: relative;
+}
+
+.icon:before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none !important;
+}
+
+.icon > .label {
+  display: none;
+}
