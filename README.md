@@ -17,5 +17,8 @@ disease's path predicted by our algorithms.
 
 
 ## Thank You List
-Emilee Chen for the design.
-Eric from MongoDB for extensive help.
+Emilee Chen for design help.
+Eric from MongoDB for extensive database help.
+Jeremy from OpenTable for help with modeling. 
+Satish from Code for India critically looking at our project and awarding us Chromecasts.
+
