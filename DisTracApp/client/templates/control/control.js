@@ -5,3 +5,15 @@ Template.control.rendered = function () {
     }
   });
 }
+  
+Template.control.helpers({
+    totalSusceptible: function() {
+      
+    },
+    
+    totalInfected: function() {
+      console.log(Points.find());
+      return Points.find().count;
+    },
+  
+});
