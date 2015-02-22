@@ -13,6 +13,7 @@ Template.index.rendered = function () {
   Tracker.autorun(function() {
     var i = 0;
     Points.find().forEach(function (point) {
+      console.log(point);
       points[i] = point; i++;
     });
     console.log(points);
