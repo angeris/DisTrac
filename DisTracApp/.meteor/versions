@@ -1,6 +1,5 @@
 aldeed:geocoder@0.3.4
 application-configuration@1.0.4
-autopublish@1.0.2
 autoupdate@1.1.5
 base64@1.0.2
 binary-heap@1.0.2
@@ -59,6 +58,7 @@ spacebars@1.0.5
 spacebars-compiler@1.0.4
 templating@1.0.11
 tracker@1.0.5
+udondan:bulk-collection-update@0.2.0
 ui@1.0.5
 underscore@1.0.2
 url@1.0.3

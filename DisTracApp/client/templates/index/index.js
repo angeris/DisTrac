@@ -1,6 +1,25 @@
 // Make the globe a 'global' variable, "get it?"
 globe = null;
-points = null;
+years = [];
+settime = function(globe, t) {
+  return function() {
+
+    console.log('running in settime');
+    // MAKE SURE the array is sorted by the years!!!
+    // This gives t as the max value in the years array less than t
+    for (i = t; i >= 0; i--) {
+      console.log(years);
+      if ((i <= Math.max.apply(null, years)) && ($.inArray(i, years) != -1)) {
+        t = i;
+        break;
+      }
+    }
+    var index = $.inArray(t, years);
+
+    new TWEEN.Tween(globe).to({time: index / years.length}, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+    TWEEN.start();
+  };
+};
 
 /* Template.rendered, this function should run only after the entire template has
  * already been loaded. Meaning that the DOM should be manipulable.
@@ -8,37 +27,76 @@ points = null;
 Template.index.rendered = function () {
   var container = $("#main");
   globe = new DAT.Globe(container);
+  globe.animate();
+
+  // // Setup reactive datasource to continuously grab points.
+  // Tracker.autorun(function() {
+  //   var i = 0;
+  //   Points.find().forEach(function (point) {
+  //     console.log(point);
+  //     points[i] = point; i++;
+  //   });
 
   // Setup reactive datasource to continuously grab points.
   Tracker.autorun(function() {
-    
-    var i = 0;
-    Points.find().forEach(function (point) {
-      console.log(point);
-      points[i] = point; i++;
+    var timeMap = [];
+    Points.find({}, {
+      time: -1
+    }).forEach(function (point) {
+      timeMap.push(point);
     });
-    console.log(points);
+
+    console.log(timeMap);
+    //console.log(timeMap);
+
+    var currentTime = timeMap[0].time;
+    var finalTimeMap = [];
+    var points = [];
+    var results = [];
+
+    for (var i = 0; i < timeMap.length; i++) {
+      if (timeMap[i].time != currentTime) {
+        results = [currentTime, points];
+        finalTimeMap.push(results);
+        currentTime = timeMap[i].time;
+        points = [];
+
+      } else {
+        points.push(timeMap[i].lat);
+        points.push(timeMap[i].lon);
+        points.push(timeMap[i].count);
+      }
+    }
+
+    console.log(finalTimeMap);
 
     // Create the WebGL object if it doesn't already exist.
     if (!Detector.webgl) {
       Detector.addGetWebGLMessage();
     } else {
 
-      var data = sampleData;
-      for (var i = 0; i < data.length; i++) {
-        globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+      var data = finalTimeMap;
+      for(var i = 0; i < data.length; i++) {
+        years[i] = data[i][0];
       }
 
+      // var data = sampleData;
+      for (var i = 0; i < data.length; i++) {
+        if (data[i][0] && data[i][1]) {
+          globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+        }
+      }
+
+      settime(globe,0)();
       globe.createPoints();
       globe.animate();
     }
   });
-  
-  alertify.log("Hello there!");
-  Meteor.setInterval(function() {
-    alertify.log("Paris has 9 confirmed new cases");
-  }, 10000);
-  
+
+  Tracker.autorun(function() {
+    var t = Session.get('currentDay');
+    settime(globe,t)();
+  });
 }
 
 // globeData = function() {
