@@ -2,7 +2,7 @@
 if (Meteor.isClient) {
   Session.set('pageTitle', 'DisTrac');
 
-  console.log(cities);
+  console.log("These are the cities" + cities);
 }
 
 Meteor.startup(function () {
