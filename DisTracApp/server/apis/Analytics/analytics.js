@@ -17,6 +17,8 @@ var SI_self_vec, IR_self_vec;
 
 var S_vec, I_vec, R_vec;
 
+var l_reps = [];
+
 //Methods
 
 Meteor.methods({
@@ -56,8 +58,8 @@ function initModel() {
     
     for(i=0; i<N; i++) {
         S_vec[i] = 1;
-        SI_self_vec[i] = .01*Math.random();
-        IR_self_vec[i] = .01*Math.random();
+        SI_self_vec[i] = .5;
+        IR_self_vec[i] = .5;
     }
     
     console.log('S: ' + numeric.prettyPrint(S_vec));
@@ -98,10 +100,24 @@ function initModel() {
 
 function evalModel() {
     //Reevaluate model from db when new information is given.
-    for(i=0; i<10; i++) {
-        markovUpdate();
+
+    var i;
+    
+    //Build the Infected matrix.
+    for(i=0; i<N; i++) {
+        var name = l_cities[i].asciiname;
+        var rep = Reports.find({ asciiname: name}).fetch();
+        
+        if(_.isEmpty(rep)) continue;
+        
+        I_vec[i] = rep[0].disCount/l_cities[i].population;
+        S_vec[i] = 1- I_vec[i];
     }
     
+    
+    for(i=0; i<40; i++) {
+        markovUpdate();
+    }
     
 }
 
@@ -114,7 +130,7 @@ function markovUpdate() {
         S_vec[i] = S_vec[i] - SI_self_vec[i]*I_vec[i]*S_vec[i];
     }
     
-    //Second part, Markov model
+    //Second part, Linear discrete model
     R_vec = numeric.dot(tran_matrix, R_vec);
     I_vec = numeric.dot(tran_matrix, I_vec);
     S_vec = numeric.dot(tran_matrix, S_vec);
