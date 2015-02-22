@@ -7,10 +7,24 @@ var controls;
 var start = Date.now();
 var gui;
 
+var years;
+
 Template.index.rendered = function () {
   Meteor.setTimeout(init, 0);
 };
-  
+
+globeData = function() {
+      this.message = 'dat.gui';
+      this.time = 4;
+      this.displayOutline = false;
+      this.devLog = 1;
+      this.totalInfected = 8;
+      this.totalRecovered = 0;
+      this.totalSusceptible = 1000;
+};
+
+globeDataObj = new globeData();
+
 function init() {
   
   if(!Detector.webgl){
@@ -18,17 +32,17 @@ function init() {
     } else {
 
       container = $(".container");
-      var years = ['1990','1995','2000'];
-      var globe = new DAT.Globe(container);
+      var globe = window.globe = new DAT.Globe(container);
       
       var i, tweens = [];
+      years = [];
       var data;
       
-      var settime = function(globe, t) {
-        return function() {
-          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-        };
-      };
+//      var settime = function(globe, t) {
+//        return function() {
+//          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+//        };
+//      };
 
 
       
@@ -59,49 +73,63 @@ function init() {
           console.log(result.data);
       });
 */
-      
-
       // Whatever man screw loading from files
       data = sampleData;
+            
+      for(i=0; i < data.length; i++) {
+        years[i] = data[i][0];
+        console.log(years[i]);
+      }
+      
+      var settime = function(globe, t) {
+        return function() {
+            
+          // MAKE SURE the array is sorted by the years!!!
+          
+          // This gives t as the max value in the years array less than t
+          for (i = t; i >= 0; i--) {
+            if ((i <= Math.max.apply(null, years)) && ($.inArray(i, years) != -1)) {
+              t = i;
+              console.log(years);
+              console.log(t);
+              break;
+            }
+          }            
+          globeData.time = t;
+          new TWEEN.Tween(globe).to({time: t / years.length}, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+        };
+      };
+      
+      TWEEN.start();
+    
+      
+      
       window.data = data;
       for (i=0; i < data.length; i++) {
         globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
       }
       globe.createPoints();
-      settime(globe,1)();
+      settime(globe,0)();
      
       document.body.style.backgroundImage = 'none';
       
       globe.animate();
       
       
-      
-      
-      
-      
-      
-      var FizzyText = function() {
-        this.message = 'dat.gui';
-        this.Time = 0.8;
-        this.displayOutline = false;
-        this.devLog = 1;
-        // Define render logic ...
-      };
 
       gui = new dat.GUI();
-      var text = new FizzyText();
  
-      gui.add(text, 'message');
-      gui.add(text, 'displayOutline');
-      var time = gui.add(text, 'Time', 0, 100);
+      var totalInfected = gui.add(globeDataObj, 'totalInfected');
+      var totalRecovered = gui.add(globeDataObj, 'totalRecovered');
+      var totalSusceptible = gui.add(globeDataObj, 'totalSusceptible');
+      var time = gui.add(globeDataObj, 'time').min(0).max(30).step(1);
       
       var devGui = gui.addFolder('Dev');
-      devGui.add(text, 'devLog');
+      devGui.add(globeDataObj, 'devLog');
       
       // This function gets called when you change the time slider
       time.onChange(function(value) {
-        
-        // Fires on every change, drag, keypress, etc.
+        settime(globe, value)();
       });
       
       
