@@ -113,8 +113,15 @@ Meteor.methods({
         lon: lon,
         dis: dis,
         disCount: disCount,
-        phoneNum: phoneNum
+        time: 0
       });
+
+      // Call the analytics model to reevaluate the data.
+      Meteor.call('reevaluateModel', function (error, data) {
+        if (error) {
+          console.log(error);
+        }
+      })
 
       // Return a success message.
       return {returnText: 'Report Successful'};
