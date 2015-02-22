@@ -8,6 +8,7 @@ var start = Date.now();
 var gui;
 
 var years;
+var timer;
 
 Template.index.rendered = function () {
   Meteor.setTimeout(init, 0);
@@ -16,6 +17,7 @@ Template.index.rendered = function () {
 globeData = function() {
       this.message = 'dat.gui';
       this.time = 4;
+      this.incrementTime = false;
       this.displayOutline = false;
       this.devLog = 1;
       this.totalInfected = 8;
@@ -130,7 +132,8 @@ function init() {
       gui.add(globeDataObj, 'totalInfected').listen();
       var totalRecovered = gui.add(globeDataObj, 'totalRecovered');
       var totalSusceptible = gui.add(globeDataObj, 'totalSusceptible');
-      var time = gui.add(globeDataObj, 'time').min(0).max(30).step(1);
+      var time = gui.add(globeDataObj, 'time').min(0).max(100).step(1).listen();
+      var incrementTime = gui.add(globeDataObj, 'incrementTime').listen();
       
       var devGui = gui.addFolder('Dev');
       devGui.add(globeDataObj, 'devLog');
@@ -140,9 +143,20 @@ function init() {
         settime(globe, value)();
       });
       
+      incrementTime.onChange(function(value) {
+        if(value === true) {
+          // Increment the time
+          timer = Meteor.setInterval(function() { globeDataObj.time++; settime(globe, globeDataObj.time)();}, 5000);
+        } else {
+          Meteor.clearInterval(timer);
+        }
+      });
+      
       
       // Screw around with the DAT gui
       Meteor.setTimeout(style, 1000);
+      
+      
       
 
       
