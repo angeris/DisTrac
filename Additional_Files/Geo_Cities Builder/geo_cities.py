@@ -23,7 +23,7 @@ for line in f:
         "featurecode":        case[7],
         "countrycode":        case[8],
         "cc2":                case[9],
-        "population":         case[14],
+        "population":         int(case[14]),
         "elevation":          case[15],
         "dem":                case[16],
         "timezone":           case[17],
