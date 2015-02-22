@@ -1,11 +1,14 @@
 Template.control.rendered = function () {
-  $('#ex1').slider({
-    formatter: function (value) {
-      return 'Current value: ' + value;
-    }
-  });
+  Session.set('currentDay', '1');
 }
-  
+
+Template.control.events({
+  'change #ex1': function (evt) {
+    var val = Math.round(parseInt(evt.currentTarget.value) / 100 * 40);
+    Session.set('currentDay', val);
+  }
+});
+
 Template.control.helpers({
   totalSusceptible: function() {
 
@@ -13,18 +16,16 @@ Template.control.helpers({
 
   totalInfected: function() {
     var sum = 0;
-    console.log(Points.find());
     Points.find().forEach(function(point) {
-      console.log(point.count);
-      sum += point.count;
+      if (point.time == Session.get('currentDay')) {
+        sum += point.count;
+      }
     });
-
-    console.log(sum);
-    return 100;
+    return sum;
   },
 
   currentDay: function() {
-    return 5;
+    return Session.get('currentDay');
   },
   
   daySliderValue: function() {

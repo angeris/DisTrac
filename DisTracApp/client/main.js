@@ -4,5 +4,5 @@ if (Meteor.isClient) {
 }
 
 Meteor.startup(function () {
-
+  Session.set('currentDay', '1');
 });

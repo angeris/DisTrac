@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 jquery
 iron:router
@@ -19,3 +18,4 @@ bootstrap
 natestrauser:font-awesome
 underscore
 
+udondan:bulk-collection-update

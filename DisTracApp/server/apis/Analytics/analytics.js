@@ -3,6 +3,7 @@
 
 //Constants
 
+uniqueCount = 1;
 var EARTH_RADIUS    = 6371000;
 var D_THRESH        = 1e-5;
 
@@ -19,16 +20,31 @@ var S_vec, I_vec, R_vec;
 
 var l_reps = [];
 
+l = [];
 
 
 //Methods
 Meteor.methods({
     reevaluateModel: function() {
         evalModel();
+
+        bulkCollectionUpdate(Points, l, {
+            primaryKey: "idenId",
+            callback: function() {
+              console.log("Done. Collection now has " + Points.find().count() + " documents.");
+            }
+        });
     },
     initializeModel: function() {
         initModel();
         evalModel();
+
+        bulkCollectionUpdate(Points, l, {
+            primaryKey: "idenId",
+            callback: function() {
+              console.log("Done. Collection now has " + Points.find().count() + " documents.");
+            }
+        });
     }
 });
 
@@ -47,10 +63,10 @@ function initModel() {
     });
 
     N = l_cities.length;
-    
+
     SI_self_vec = zeros([N]);
     IR_self_vec = zeros([N]);
-    
+
     tran_matrix = zeros([N, N]);
 
     S_vec = zeros([N]);
@@ -60,12 +76,12 @@ function initModel() {
     for(i=0; i<N; i++) {
         //Useful init value for debugging. Changed later.
         S_vec[i] = 1;
-        
+
         //Parameters for model.
         SI_self_vec[i] = .1*Math.random();
         IR_self_vec[i] = .1*Math.random();
     }
-    
+
 //    Debugging stuff
 
 //    console.log('S: ' + numeric.prettyPrint(S_vec));
@@ -74,10 +90,10 @@ function initModel() {
 
 
     //Compute distances
-    
-    
+
+
     //console.log(l_cities[0].location);
-    
+
     var i, j;
 
     for(i=0; i<N; i++) {
@@ -111,13 +127,13 @@ function evalModel() {
     //Reevaluate model from db when new information is given.
 
     Points.remove({});
-    
-    
-    var i, l=[];
-    
+
+
+    var i;
+
     //Build the Infected matrix and pass infected cases to
     //front-end.
-    
+
     for(i=0; i<N; i++) {
         var name = l_cities[i].asciiname;
         var rep = Reports.find({ asciiname: name}).fetch();
@@ -126,21 +142,23 @@ function evalModel() {
 
         I_vec[i] = rep[0].disCount/l_cities[i].population;
         S_vec[i] = 1- I_vec[i];
-        
-        Points.insert({
+
+        l.push({
+            idenId: String(uniqueCount++),
             lat: l_cities[i].location.coordinates[1],
             lon: l_cities[i].location.coordinates[0],
             count: rep[0].disCount,
             time: 0,
             cityId: l_cities[i].geonameid,
             predicted: 0
-        }); 
+        });
     }
+
 
 
     for(i=0; i<40; i++) {
         markovUpdate();
-        
+
         //Check if we should write to the database.
         checkUpdate(i);
     }
@@ -149,14 +167,13 @@ function evalModel() {
 
 function checkUpdate(currentTime) {
     var i;
-    var l = [];
-    
-    
+
     for(i=0; i<N; i++) {
         if(I_vec[i]+R_vec[i] > D_THRESH) {
             var con = Math.round((I_vec[i]+R_vec[i])*l_cities[i].population);
-            
-            Points.insert({
+
+            l.push({
+                idenId: String(uniqueCount++),
                 lat: l_cities[i].location.coordinates[1],
                 lon: l_cities[i].location.coordinates[0],
                 count: con,
@@ -170,7 +187,7 @@ function checkUpdate(currentTime) {
 
 function markovUpdate() {
     //First part, self-update
-    
+
     var i;
     for(i=0; i<N; i++) {
         R_vec[i] += IR_self_vec[i]*I_vec[i];
@@ -182,7 +199,7 @@ function markovUpdate() {
     R_vec = numeric.dot(tran_matrix, R_vec);
     I_vec = numeric.dot(tran_matrix, I_vec);
     S_vec = numeric.dot(tran_matrix, S_vec);
-    
+
     //Debugging stuff.
 //    console.log('S: ' + numeric.prettyPrint(S_vec));
 //    console.log('I: ' + numeric.prettyPrint(I_vec));
