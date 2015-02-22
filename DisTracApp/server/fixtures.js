@@ -15,12 +15,16 @@ if (Meteor.isServer) {
       var cities = EJSON.parse(result['content']).items;
       for (var i = 0; i < cities.length; i++) {
         // Store the report in the mongodb database.
+//        if(i==0) console.log(cities[0]);
         Cities.insert({
           geonameid: cities[i].geonameid,
           name: cities[i].name,
           asciiname: cities[i].asciiname,
           alternatenames: cities[i].alternatenames,
-          location: cities[i].location,
+          location: {
+              type: cities[i].location.type,
+              coordinates: cities[i].location.coordinates
+          },
           featureclass: cities[i].featureclass,
           featurecode: cities[i].featurecode,
           countrycode: cities[i].countrycode,
