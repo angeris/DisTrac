@@ -11,6 +11,7 @@ Template.index.rendered = function () {
 
   // Setup reactive datasource to continuously grab points.
   Tracker.autorun(function() {
+    
     var i = 0;
     Points.find().forEach(function (point) {
       console.log(point);
