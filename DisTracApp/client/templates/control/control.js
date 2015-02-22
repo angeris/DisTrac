@@ -12,8 +12,15 @@ Template.control.helpers({
     },
     
     totalInfected: function() {
+      var sum = 0;
       console.log(Points.find());
-      return Points.find().count;
+      Points.find().forEach(function(point) {
+        console.log(point.count);
+        sum += point.count;
+      });
+      
+      console.log(sum);
+      return 100;
     },
   
 });

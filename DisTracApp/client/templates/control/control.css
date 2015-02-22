@@ -40,6 +40,10 @@
   font-size: 0.8em;
 }
 
+.parameterValue {
+  color: #fafaaa;
+}
+
 #ex1 {
  margin-top: 40px; 
 }

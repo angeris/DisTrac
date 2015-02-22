@@ -5,7 +5,7 @@ body {
 
 body, input, select, textarea {
   color: #888;
-  font-family: "Lato", sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 16pt;
   font-weight: 400;
   line-height: 1.75em;
@@ -17,6 +17,12 @@ body, input, select, textarea {
 }
 
 .alertify-log {
-  background-color: #fff;
-  color: #2d2d2d;
+  background-color: rgba(255,255,255,0);
+  color: rgba(255,255,255,1);
+  font-family: "Arial", sans-serif;
+  margin-right: 0px;
+  width: 300px;
+  float: right;
+  font-size: 0.6em;
+  line-height: 0em;
 }
