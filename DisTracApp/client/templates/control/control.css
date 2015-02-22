@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
 
 #control {
-  background: #3f3f3f;
+  background: rgba(63,63,63,0.3);
   color: #ffffff;
   height: 100%;
   width: 20%;
@@ -30,6 +30,7 @@
 }
 
 .parameterList {
+  list-style-type: none;
   margin-bottom: 40px;
 }
 
