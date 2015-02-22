@@ -95,7 +95,6 @@ function init() {
               break;
             }
           }  
-          console.log("T is now: " + t);
           var index = $.inArray(t, years);
                     
           // Here we set the time!!!!
@@ -120,7 +119,6 @@ function init() {
       
       window.data = data;
       for (i=0; i < data.length; i++) {
-        console.log("We're ADDING DATA for index " + i + " which is time: " + data[i][0]);
         globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
       }
       globe.createPoints();
