@@ -1,4 +1,6 @@
 /* #control */
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,200);
+
 #control {
   background: #3f3f3f;
   color: #ffffff;
@@ -8,6 +10,41 @@
   text-align: center;
   top: 0;
   left: 0;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+#logo {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-weight: 200;
+  font-size: 3em;
+}
+
+#description {
+  font-size: .6em;
+  line-height: 1.8em;
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+  margin: 40px 16px 40px 16px;
+}
+
+.parameterList {
+  margin-bottom: 40px;
+}
+
+.parameter {
+  line-height: 2em;
+  float: left;
+  font-size: 0.8em;
+}
+
+#ex1 {
+ margin-top: 40px; 
+}
+
+.ul {
+  font-size: 0.8em;
 }
 
 #footer {
@@ -27,6 +64,7 @@ ul.icons {
   text-decoration: none;
   border-bottom: none;
   position: relative;
+  margin-top: 40px;
 }
 
 .icon:before {
