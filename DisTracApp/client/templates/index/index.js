@@ -102,7 +102,6 @@ function init() {
 
           var index = $.inArray(t, years);
           for(j=2; j < data[index][1].length; j+=3) {
-            console.log(data[index]);
             globeDataObj.totalInfected += data[index][1][j];
           }
           
