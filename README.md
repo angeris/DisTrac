@@ -20,5 +20,5 @@ disease's path predicted by our algorithms.
 Emilee Chen for design help.
 Eric from MongoDB for extensive database help.
 Jeremy from OpenTable for help with modeling. 
-Satish from Code for India critically looking at our project and awarding us Chromecasts.
+Kshitij from Code for India critically looking at our project and awarding us Chromecasts.
 
