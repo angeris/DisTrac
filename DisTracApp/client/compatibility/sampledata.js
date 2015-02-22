@@ -47,15 +47,22 @@ var dummyCities = [121.47,  31.23,
 ,13.38 ,52.52];
 
 var cities = [];
+
 var citiesNum = 0;
-for(var i = 1; i <= 30; i++) {
+
+for(var i = 0; i < 30; i++) {
   //var dummyCitiesCopy = dummyCities;
   var resultsCities = [];
 
   for(var j = 0; j < dummyCities.length; j += 2) {
       citiesNum = j / 2;
-        var dummyCount = cities[i-1][citiesNum*3] + Math.round(Math.random() * 5);// : Math.round(Math.random() * 5);
-        
+      //var dummyCount = i == 0 ? 1 : Math.random()*10;//(cities[i-1][citiesNum*3] + (Math.random() * 3)) : (Math.random()*3);// : Math.round(Math.random() * 5);
+      if (j < dummyCities.length/2)
+        var dummyCount = (i < 10) ? 1 : ((i-10)*0.5)*Math.random()*4;//(cities[i-1][citiesNum*3 - 1]+(Math.random() * 3));// : Math.round(Math.random() * 5);
+      else
+        var dummyCount = i == 0 ? 1 : (i*0.5)*Math.random()*4;
+
+      //console.log(cities[i-1][citiesNum*3 - 1]);
       //var dummyCount = (citiesNum != 0) ? cities[citiesNum] + Math.round(Math.random() * 5) : Math.round(Math.random() * 5);
 //      if (j > dummyCitiesCopy.length / 3) {
 //        dummyCount = 0;
@@ -98,7 +105,7 @@ for(var i = 1; i <= 30; i++) {
     }
   }*/
 
-  citiesNum += 1;
+  //citiesNum += 1;
   cities.push([i, resultsCities]);
 }
 

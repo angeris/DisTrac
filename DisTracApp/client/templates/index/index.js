@@ -76,7 +76,6 @@ Template.index.rendered = function () {
 
       //var data = sampleData;
       var data = cities;
-      console.log(cities);
       //var data = finalTimeMap;
       for(var i = 0; i < data.length; i++) {
         years[i] = data[i][0];
