@@ -34,4 +34,98 @@ if (Meteor.isServer) {
       }
     });
   }
+
+  // Only seed the reports collection if it hasn't already been seeded.
+  if (Reports.find().count() === 0) {
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: disCount,
+      time:
+    });
+  }
 }
