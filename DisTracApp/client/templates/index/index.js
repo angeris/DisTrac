@@ -38,14 +38,6 @@ function init() {
       years = [];
       var data;
       
-//      var settime = function(globe, t) {
-//        return function() {
-//          new TWEEN.Tween(globe).to({time: t/years.length},500).easing(TWEEN.Easing.Cubic.EaseOut).start();
-//        };
-//      };
-
-
-      
       // This ain't workin
 /*      var xhr = new XMLHttpRequest(); 
       xhr.open('GET', '/public/populationdata.json', true);
@@ -75,11 +67,18 @@ function init() {
 */
       // Whatever man screw loading from files
       data = sampleData;
-            
+      
+      globeDataObj.totalInfected = 0;
+      
       for(i=0; i < data.length; i++) {
         years[i] = data[i][0];
-        console.log(years[i]);
+        
+        for(j=2; j < data[i][1].length; j+=3) {
+           globeDataObj.totalInfected += data[i][1][j];
+        }
+        
       }
+      
       
       var settime = function(globe, t) {
         return function() {
@@ -90,13 +89,23 @@ function init() {
           for (i = t; i >= 0; i--) {
             if ((i <= Math.max.apply(null, years)) && ($.inArray(i, years) != -1)) {
               t = i;
-              console.log(years);
-              console.log(t);
               break;
             }
           }            
+          // Here we set the time!!!!
           globeData.time = t;
+          
           new TWEEN.Tween(globe).to({time: t / years.length}, 500).easing(TWEEN.Easing.Cubic.EaseOut).start();
+          
+          // Update the infected count!!!
+          globeDataObj.totalInfected = 0;
+
+          var index = $.inArray(t, years);
+          for(j=2; j < data[index][1].length; j+=3) {
+            console.log(data[index]);
+            globeDataObj.totalInfected += data[index][1][j];
+          }
+          
         };
       };
       
@@ -119,7 +128,7 @@ function init() {
 
       gui = new dat.GUI();
  
-      var totalInfected = gui.add(globeDataObj, 'totalInfected');
+      gui.add(globeDataObj, 'totalInfected').listen();
       var totalRecovered = gui.add(globeDataObj, 'totalRecovered');
       var totalSusceptible = gui.add(globeDataObj, 'totalSusceptible');
       var time = gui.add(globeDataObj, 'time').min(0).max(30).step(1);
