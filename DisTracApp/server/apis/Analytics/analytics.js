@@ -25,6 +25,7 @@ Meteor.methods({
     },
     initializeModel: function() {
         initModel();
+        evalModel();
     }
 });
 
@@ -49,15 +50,19 @@ function initModel() {
     
     tran_matrix = zeros([N, N]);
     
-    S_vec = zeros(N);
-    I_vec = zeros(N);
-    R_vec = zeros(N);
+    S_vec = zeros([N]);
+    I_vec = zeros([N]);
+    R_vec = zeros([N]);
     
     for(i=0; i<N; i++) {
         S_vec[i] = 1;
-        SI_self_vec[i] = .1;
-        IR_self_vec[i] = .1;
+        SI_self_vec[i] = .01;
+        IR_self_vec[i] = .01;
     }
+    
+    console.log('S: ' + numeric.prettyPrint(S_vec));
+    console.log('I: ' + numeric.prettyPrint(I_vec));
+    console.log('R: ' + numeric.prettyPrint(R_vec));
     
     //Compute distances
     var i, j;
@@ -87,21 +92,17 @@ function initModel() {
         }
     }
     
-    console.log(numeric.prettyPrint(tran_matrix));
-    
-    console.log(numeric.prettyPrint(S_vec));
-    
-    for(i=0; i<10; i++) {
-        markovUpdate();
-    }
-    
-    
 //    //Make Sparse
 //    t_sparse = numeric.ccsSparse(tran_matrix);
 }
 
 function evalModel() {
     //Reevaluate model from db when new information is given.
+    for(i=0; i<10; i++) {
+        markovUpdate();
+    }
+    
+    
 }
 
 function markovUpdate() {
@@ -109,8 +110,8 @@ function markovUpdate() {
     var i;
     for(i=0; i<N; i++) {
         R_vec[i] += IR_self_vec[i]*I_vec[i];
-        I_vec[i] = SI_self_vec[i]*S_vec[i] + (1-IR_self_vec[i])*I_vec[i];
-        S_vec[i] = (1-SI_self_vec[i])*S_vec[i];
+        I_vec[i] = I_vec[i]*SI_self_vec[i]*S_vec[i] + (1-IR_self_vec[i])*I_vec[i];
+        S_vec[i] = S_vec[i] - SI_self_vec[i]*I_vec[i]*S_vec[i];
     }
     
     //Second part, Markov model
@@ -118,7 +119,10 @@ function markovUpdate() {
     I_vec = numeric.dot(tran_matrix, I_vec);
     S_vec = numeric.dot(tran_matrix, S_vec);
     
-    console.log(numeric.prettyPrint(S_vec));
+        
+    console.log('S: ' + numeric.prettyPrint(S_vec));
+    console.log('I: ' + numeric.prettyPrint(I_vec));
+    console.log('R: ' + numeric.prettyPrint(R_vec));
     
 }
 
