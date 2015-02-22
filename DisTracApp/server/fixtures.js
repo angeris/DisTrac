@@ -34,4 +34,96 @@ if (Meteor.isServer) {
       }
     });
   }
+
+  // Only seed the reports collection if it hasn't already been seeded.
+  if (Reports.find().count() === 0) {
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      dis: "ebola",
+      disCount: 500,
+      asciiname: "Shanghai",
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      dis: "ebola",
+      disCount: 500,
+      asciiname: "Karachi",
+      time: 0
+    });
+
+    /*// Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      lat: lat,
+      lon: lon,
+      dis: dis,
+      disCount: 0,
+      time: 0
+    });*/
+  }
 }

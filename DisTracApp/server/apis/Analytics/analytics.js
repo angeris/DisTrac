@@ -56,8 +56,8 @@ function initModel() {
     
     for(i=0; i<N; i++) {
         S_vec[i] = 1;
-        SI_self_vec[i] = .01;
-        IR_self_vec[i] = .01;
+        SI_self_vec[i] = .01*Math.random();
+        IR_self_vec[i] = .01*Math.random();
     }
     
     console.log('S: ' + numeric.prettyPrint(S_vec));
