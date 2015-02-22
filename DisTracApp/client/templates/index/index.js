@@ -39,7 +39,7 @@ Template.index.rendered = function () {
 
   // Setup reactive datasource to continuously grab points.
   Tracker.autorun(function() {
-    var timeMap = [];
+    /*var timeMap = [];
     Points.find({}, {
       time: -1
     }).forEach(function (point) {
@@ -67,20 +67,22 @@ Template.index.rendered = function () {
         points.push(timeMap[i].count);
       }
     }
-
-    console.log(finalTimeMap);
+*/
 
     // Create the WebGL object if it doesn't already exist.
     if (!Detector.webgl) {
       Detector.addGetWebGLMessage();
     } else {
 
-      var data = finalTimeMap;
+      //var data = sampleData;
+      var data = cities;
+      console.log(cities);
+      //var data = finalTimeMap;
       for(var i = 0; i < data.length; i++) {
         years[i] = data[i][0];
       }
-
-      // var data = sampleData;
+      
+      //console.log(cities);
       for (var i = 0; i < data.length; i++) {
         if (data[i][0] && data[i][1]) {
           globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
