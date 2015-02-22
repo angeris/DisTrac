@@ -8,7 +8,7 @@ if (Meteor.isServer) {
     // HTTP GET Request to return cities data.
     HTTP.call('GET', PARSE_URL, function (error, result) {
       if (error) {
-        console.log(error);
+        console.log("some error" + error);
       }
 
       // Iterate over all the cities and store them into Cities collection.

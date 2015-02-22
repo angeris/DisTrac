@@ -1,7 +1,17 @@
-/* API: Model backend for disease analytics. Can be called with specific information which is then
- * parsed using a stochastic model / the SIRE model.
- */
+//  API: Model backend for disease analytics. Can be called with specific information which is then
+//  * parsed using a stochastic model / the SIRE model.
 
+<<<<<<< HEAD
+
+// Meteor.methods({
+//     reevaluateModel: function() {
+//         evalModel();
+//     },
+//     initializeModel: function() {
+//         initModel();
+//     }
+// });
+=======
 //Constants 
 
 var EARTH_RADIUS = 6371000;
@@ -168,3 +178,4 @@ function latlongdist(lat1, long1, lat2, long2) {
     var c = 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     return EARTH_RADIUS*c;
 }
+>>>>>>> master
