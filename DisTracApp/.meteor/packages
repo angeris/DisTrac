@@ -13,13 +13,9 @@ mrt:twilio-meteor
 aldeed:geocoder
 http
 meteorhacks:npm
-
-
 npm-container
-<<<<<<< HEAD
 ovcharik:alertify
 bootstrap
 natestrauser:font-awesome
-=======
 underscore
->>>>>>> master
+

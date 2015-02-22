@@ -180,7 +180,7 @@ DAT.Globe = function(container, opts) {
     this.is_animated = opts.animated;
     opts.format = opts.format || 'magnitude'; // other option is 'legend'
     if (opts.format === 'magnitude') {
-      step = 3; 
+      step = 3;
       colorFnWrapper = function(data, i) { return colorFn(data[i+2]); }
     } else if (opts.format === 'legend') {
       step = 4;
@@ -192,18 +192,18 @@ DAT.Globe = function(container, opts) {
     if (opts.animated) {
       if (this._baseGeometry === undefined) {
         this._baseGeometry = new THREE.Geometry();
-<<<<<<< HEAD
+// <<<<<<< HEAD
 
         //console.log("Global time is: " + globeDataObj.time);
-        for (i = 0; i < data.length; i += step) {
-          //time = data[i + 3];
+        // for (i = 0; i < data.length; i += step) {
+        //   time = data[i + 3];
 
-          //if (time <= globeDataObj.time) {
-=======
-        
+        //   if (time <= globeDataObj.time) {
+// =======
+
         for (i = 0; i < data.length; i += step) {
-          
->>>>>>> master
+
+// >>>>>>> master
             lat = data[i];
             lng = data[i + 1];
             size = data[i + 2];
@@ -221,13 +221,13 @@ DAT.Globe = function(container, opts) {
     }
     var subgeo = new THREE.Geometry();
     for (i = 0; i < data.length; i += step) {
-<<<<<<< HEAD
+// <<<<<<< HEAD
 
-      //time = data[i + 3];
-      //if (time >= globeDataObj.time) {
-=======
-      
->>>>>>> master
+      // time = data[i + 3];
+      // if (time >= globeDataObj.time) {
+// =======
+
+// >>>>>>> master
         lat = data[i];
         lng = data[i + 1];
         color = colorFnWrapper(data,i);
