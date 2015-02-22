@@ -59,8 +59,10 @@ for(var i = 0; i < 30; i++) {
       //var dummyCount = i == 0 ? 1 : Math.random()*10;//(cities[i-1][citiesNum*3] + (Math.random() * 3)) : (Math.random()*3);// : Math.round(Math.random() * 5);
       if (j < dummyCities.length/2)
         var dummyCount = (i < 10) ? 1 : ((i-10)*0.5)*Math.random()*4;//(cities[i-1][citiesNum*3 - 1]+(Math.random() * 3));// : Math.round(Math.random() * 5);
+      else if (j < dummyCities.length*3/4)
+        var dummyCount = (i == 0) ? 1 : (i*0.5)*Math.random()*4;
       else
-        var dummyCount = i == 0 ? 1 : (i*0.5)*Math.random()*4;
+        var dummyCount = (i < 20) ? 1+i : (20 + Math.random()*2 - 2);
 
       //console.log(cities[i-1][citiesNum*3 - 1]);
       //var dummyCount = (citiesNum != 0) ? cities[citiesNum] + Math.round(Math.random() * 5) : Math.round(Math.random() * 5);
