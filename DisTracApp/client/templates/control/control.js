@@ -29,5 +29,9 @@ Template.control.helpers({
   
   daySliderValue: function() {
     return 5; 
+  },
+  
+  runBox: function() {
+    
   }
 });
