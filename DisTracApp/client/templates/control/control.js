@@ -26,5 +26,13 @@ Template.control.helpers({
 
   currentDay: function() {
     return Session.get('currentDay');
+  },
+  
+  daySliderValue: function() {
+    return 5; 
+  },
+  
+  runBox: function() {
+    
   }
 });
