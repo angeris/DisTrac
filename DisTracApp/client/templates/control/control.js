@@ -5,3 +5,7 @@ Template.control.rendered = function () {
     }
   });
 }
+
+Template.control.helpers({
+
+});

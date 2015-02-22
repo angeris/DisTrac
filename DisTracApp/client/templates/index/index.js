@@ -6,24 +6,31 @@ points = null;
  * already been loaded. Meaning that the DOM should be manipulable.
  */
 Template.index.rendered = function () {
+  var container = $("#main");
+  globe = new DAT.Globe(container);
 
-  // Create the WebGL object if it doesn't already exist.
-  if (!Detector.webgl) {
-    Detector.addGetWebGLMessage();
-  } else {
+  // Setup reactive datasource to continuously grab points.
+  Tracker.autorun(function() {
+    var i = 0;
+    Points.find().forEach(function (point) {
+      points[i] = point; i++;
+    });
+    console.log(points);
 
-    var container = $("#main");
-    globe = new DAT.Globe(container);
+    // Create the WebGL object if it doesn't already exist.
+    if (!Detector.webgl) {
+      Detector.addGetWebGLMessage();
+    } else {
 
-    var data = sampleData;
-    for (var i = 0; i < data.length; i++) {
-      globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+      var data = sampleData;
+      for (var i = 0; i < data.length; i++) {
+        globe.addData(data[i][1], {format: 'magnitude', name: data[i][0], animated: true});
+      }
+
+      globe.createPoints();
+      globe.animate();
     }
-
-    globe.createPoints();
-    globe.animate();
-    alertify.log("Hihi");
-  }
+  });
 }
 
 // globeData = function() {
