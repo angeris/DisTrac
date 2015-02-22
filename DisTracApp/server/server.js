@@ -4,3 +4,7 @@ if (Meteor.isServer) {
 
   });
 }
+
+if (Meteor.isServer) {
+
+}

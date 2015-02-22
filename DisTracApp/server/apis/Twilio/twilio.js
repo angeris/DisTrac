@@ -1,6 +1,9 @@
 /* Twilio API: Used to send and receive texts from users. */
 
-/* Function: parseMessage(message), parses the given message in order to determine whether
+// Load Future().
+Future = Npm.require('fibers/future');
+
+/* parseMessage(..): parses the given message in order to determine whether
  * or not to store the message or subscribe to the service.
  */
 function parseMessage(message) {
@@ -35,6 +38,14 @@ function parseMessage(message) {
     params.dis = disease;
     params.disCount = diseaseCount;
 
+  // Set the function to query disease if user is querying.
+  } else if (command === 'query') {
+    var disease = message.substring(commandIndex + 1).trim();
+
+    // Grab information on the text and store them in params.
+    params.func = 'query';
+    params.dis = disease;
+
   // The user input an invalid text command.
   } else {
     params.func = 'error';
@@ -46,7 +57,7 @@ function parseMessage(message) {
 // Various calls against Twilio API.
 Meteor.methods({
 
-  /* handleTwilio: grab the parameters from a twilio text in order to parse the message
+  /* handleTwilio(..): grab the parameters from a twilio text in order to parse the message
    * for the location, phone number, body text, etc, and store in mongodb.
    */
   handleTwilio: function (query) {
@@ -68,7 +79,7 @@ Meteor.methods({
       // Check for existing subscription and halt operation if existing.
       var existingSub = Subscriptions.find({phoneNum: phoneNum});
 
-      if (!existingSub) {
+      if (!existingSub && existingSub.lat == lat && existingSub.lon == lon) {
         // Store the subscription in the mongodb database.
         Subscriptions.insert({
           lat: lat,
@@ -108,7 +119,23 @@ Meteor.methods({
       // Return a success message.
       return {returnText: 'Report Successful'};
 
-    // User rauns into an error.
+    // User is querying information on a disease.
+    } else if (params.func === 'query') {
+
+      // Loading future as a fibers parameter.
+      var future = new Future();
+
+      // Query the Wolfram API and set return text equal to diseaseInfo.
+      Meteor.call('getDiseaseInfo', params.dis, function (error, data) {
+        if (error) {
+          console.log(error);
+        }
+        future.return({returnText: data});
+      });
+
+      return future.wait();
+
+    // User runs into an error.
     } else if (params.func === 'error') {
 
       // Return an error message.
@@ -118,14 +145,36 @@ Meteor.methods({
     } else {
       console.log("Control should never reach this point. A bad error occurred.");
     }
-    console.log(query);
   },
 
-  /* alertSubscribers, send a text alert to all of the subscribers in the database, by
+  /* alertSubscribers(..): send a text alert to all of the subscribers in the database, by
    * querying for all subscribers and then sending the associated text to each of them
    * individually. The text should be quite detailed.
    */
   alertSubscribers: function (disease) {
 
+    // Create twilio client with account SID and oauth token.
+    twilio = Twilio(TWILIO_ACCOUNT_SID, TWILIO_OAUTH_TOKEN);
+
+    // Iterate over all the users in the subscriptions and send them a text.
+    var subCursor = Subscriptions.find();
+
+    subCursor.forEach( function (subscription) {
+      var toNum = subscription.phoneNum;
+
+      // Delegate twilio to send sms with proper disease information in body.
+      twilio.sendSms({
+        to: toNum,
+        from: '+14157671750',
+        body: 'Sending a text!',
+      }, function (error, responseData) {
+        if (!error) {
+          console.log(responseData.from);
+          console.log(responseData.body);
+        } else {
+          console.log('An error occurred');
+        }
+      });
+    });
   }
 });

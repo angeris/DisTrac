@@ -13,3 +13,7 @@ iron:router
 mrt:twilio-meteor
 aldeed:geocoder
 http
+meteorhacks:npm
+
+
+npm-container
