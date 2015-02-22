@@ -40,11 +40,27 @@ if (Meteor.isServer) {
 
     // Store the report in the mongodb database.
     Reports.insert({
+      dis: "ebola",
+      disCount: 500,
+      asciiname: "Shanghai",
+      time: 0
+    });
+
+    // Store the report in the mongodb database.
+    Reports.insert({
+      dis: "ebola",
+      disCount: 500,
+      asciiname: "Karachi",
+      time: 0
+    });
+
+    /*// Store the report in the mongodb database.
+    Reports.insert({
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -52,8 +68,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -61,8 +77,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -70,8 +86,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -79,8 +95,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -88,8 +104,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -97,8 +113,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
+      disCount: 0,
+      time: 0
     });
 
     // Store the report in the mongodb database.
@@ -106,26 +122,8 @@ if (Meteor.isServer) {
       lat: lat,
       lon: lon,
       dis: dis,
-      disCount: disCount,
-      time:
-    });
-
-    // Store the report in the mongodb database.
-    Reports.insert({
-      lat: lat,
-      lon: lon,
-      dis: dis,
-      disCount: disCount,
-      time:
-    });
-
-    // Store the report in the mongodb database.
-    Reports.insert({
-      lat: lat,
-      lon: lon,
-      dis: dis,
-      disCount: disCount,
-      time:
-    });
+      disCount: 0,
+      time: 0
+    });*/
   }
 }
