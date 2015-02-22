@@ -43,6 +43,8 @@ s_model.initModel = function() {
         }
     }
     
+    console.log(numeric.prettyPrint(tran_matrix));
+    
 //    //Make Sparse
 //    t_sparse = numeric.ccsSparse(tran_matrix);
 };
